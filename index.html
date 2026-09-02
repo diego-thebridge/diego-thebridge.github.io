@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Díaz López — Talks</title>
+<meta name="description" content="Talks on applied AI, agents, MCP and enterprise AI adoption.">
+<style>
+  :root {
+    --bg: #fbfbfa;
+    --fg: #16181d;
+    --muted: #5f6672;
+    --line: #e2e3e0;
+    --accent: #b5342c;
+    --card: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111215;
+      --fg: #eceef1;
+      --muted: #9aa1ac;
+      --line: #26282e;
+      --accent: #f0554b;
+      --card: #17191d;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    padding: 0 24px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 72px 0 96px; }
+
+  header { padding-bottom: 34px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.02em; }
+  .lede { color: var(--muted); margin: 0 0 18px; font-size: 17px; }
+  .links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 15px; }
+  .links a { color: var(--accent); text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+
+  h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); font-weight: 600; margin: 48px 0 20px;
+  }
+
+  .talk {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .talk h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -0.01em; }
+  .meta { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+  .talk p.desc { margin: 0 0 14px; }
+  .talk a.slides {
+    display: inline-block; font-size: 14px; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .talk a.slides:hover { text-decoration: underline; }
+  .tags { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    font-size: 12px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 100px; padding: 2px 10px;
+  }
+
+  footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 14px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Diego Díaz López</h1>
+    <p class="lede">Applied AI and solutions architecture. I work with Spanish enterprises on
+    getting Claude and other frontier models from a first use case into production — and on the
+    organisational redesign that decides whether it sticks. Anthropic Education Ambassador,
+    Madrid.</p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/diegodl">LinkedIn</a>
+      <a href="mailto:diegodl@gmail.com">diegodl@gmail.com</a>
+    </div>
+  </header>
+
+  <h2>Talks</h2>
+
+  <div class="talk">
+    <h3>The Reorganization Advantage</h3>
+    <p class="meta">Enterprise audiences · 2026</p>
+    <p class="desc">Frontier capability now costs cents through an API, so access has stopped being
+    an advantage. What separates the companies that take off from the ones that notice nothing is
+    organisational: incentives, permission and capability — none of which can be bought through an
+    API. Built on the 1890s dynamo productivity lag and on Narayanan &amp; Kapoor's argument for AI
+    as a normal technology.</p>
+    <a class="slides" href="reorganization-advantage.pdf">Slides (PDF) →</a>
+    <div class="tags">
+      <span class="tag">AI adoption</span>
+      <span class="tag">Organisational design</span>
+      <span class="tag">Enterprise</span>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3>Agents and MCP</h3>
+    <p class="meta">Codemotion Madrid · 2025</p>
+    <p class="desc">What an agent actually is, the ReAct loop, tool calling and memory, and the
+    architectures that vary by how much control you hand the model. Then the Model Context Protocol
+    itself: client–server architecture, JSON-RPC 2.0 over stdio and HTTP+SSE, the four message
+    types, connection lifecycle, OAuth, and where MCP servers get their security wrong.</p>
+    <a class="slides" href="agents-and-mcp-codemotion.pdf">Slides (PDF) →</a>
+    <div class="tags">
+      <span class="tag">MCP</span>
+      <span class="tag">Agents</span>
+      <span class="tag">ReAct</span>
+      <span class="tag">Protocol design</span>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3>Building applications with Claude</h3>
+    <p class="meta">Supabase Madrid meetup · Q4 2025</p>
+    <p class="desc">A live build: a working dashboard starting from a Figma design, orchestrating
+    three MCP servers along the way — Figma to pull the design, Playwright to refine the result
+    against a real browser, and Supabase as the cache behind live data.</p>
+    <a class="slides" href="building-with-claude-supabase.pdf">Slides (PDF) →</a>
+    <div class="tags">
+      <span class="tag">Claude Code</span>
+      <span class="tag">MCP orchestration</span>
+      <span class="tag">Live build</span>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3>The Future of Software</h3>
+    <p class="meta">AI Network · 2025</p>
+    <p class="desc">Jevons' paradox applied to software: when the cost of producing code collapses,
+    demand does not fall, it moves. What that means for what a developer actually does, and which
+    control points stay human.</p>
+    <a class="slides" href="future-of-software.pdf">Slides (PDF) →</a>
+    <div class="tags">
+      <span class="tag">Future of work</span>
+      <span class="tag">Software economics</span>
+    </div>
+  </div>
+
+  <footer>
+    Talks delivered in Spanish; slides as presented.
+    Get in touch at <a href="mailto:diegodl@gmail.com">diegodl@gmail.com</a>.
+  </footer>
+
+</div>
+</body>
+</html>
