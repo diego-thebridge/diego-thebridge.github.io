@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Díaz López — Applied AI, talks &amp; Claude Ambassador</title>
+<meta name="description" content="Talks, workshops and resources on applied AI, agents, MCP and enterprise AI adoption. Anthropic Education Ambassador and Claude Community Lead, Madrid.">
+<style>
+  :root {
+    --bg: #fbfbfa;
+    --fg: #16181d;
+    --muted: #5f6672;
+    --line: #e2e3e0;
+    --accent: #b5342c;
+    --card: #ffffff;
+    --field: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111215;
+      --fg: #eceef1;
+      --muted: #9aa1ac;
+      --line: #26282e;
+      --accent: #f0554b;
+      --card: #17191d;
+      --field: #1d1f24;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    padding: 0 24px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 72px 0 96px; }
+
+  /* ---- Bilingual switching: only one language is shown at a time ---- */
+  html[data-lang="en"] [data-l="es"] { display: none; }
+  html[data-lang="es"] [data-l="en"] { display: none; }
+
+  header { padding-bottom: 34px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.02em; }
+  .lede { color: var(--muted); margin: 0 0 18px; font-size: 17px; }
+  .links { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; font-size: 15px; }
+  .links a { color: var(--accent); text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+
+  .langswitch {
+    margin-left: auto; display: inline-flex; border: 1px solid var(--line);
+    border-radius: 100px; overflow: hidden; background: var(--card);
+  }
+  .langswitch button {
+    font: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+    padding: 4px 12px; border: 0; background: transparent; color: var(--muted);
+    cursor: pointer;
+  }
+  .langswitch button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  @media (max-width: 560px) { .langswitch { margin-left: 0; } }
+
+  h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); font-weight: 600; margin: 48px 0 20px;
+  }
+
+  .prose p { margin: 0 0 14px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose a { color: var(--accent); text-decoration: none; }
+  .prose a:hover { text-decoration: underline; }
+
+  .talk, .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+  }
+  .talk h3, .panel h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -0.01em; }
+  .meta { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+  .talk p.desc, .panel p.desc { margin: 0 0 14px; }
+  .panel p.desc:last-child { margin-bottom: 0; }
+  .talk a.slides {
+    display: inline-block; font-size: 14px; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .talk a.slides:hover { text-decoration: underline; }
+  .tags { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    font-size: 12px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 100px; padding: 2px 10px;
+  }
+
+  /* ---- What I can help with ---- */
+  .offer { display: grid; gap: 16px; }
+  @media (min-width: 620px) { .offer { grid-template-columns: 1fr 1fr; } }
+  .offer .panel { margin-bottom: 0; }
+  .offer h3 { font-size: 16px; }
+  .offer p { font-size: 15px; color: var(--muted); margin: 0; }
+
+  /* ---- Resources ---- */
+  ul.res { list-style: none; padding: 0; margin: 0; }
+  ul.res li {
+    padding: 13px 0; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+  }
+  ul.res li:last-child { border-bottom: 1px solid var(--line); }
+  ul.res a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 15px; }
+  ul.res a:hover { text-decoration: underline; }
+  ul.res span { color: var(--muted); font-size: 14px; }
+
+  /* ---- Form ---- */
+  form { margin: 0; }
+  .row { display: grid; gap: 16px; margin-bottom: 16px; }
+  @media (min-width: 620px) { .row.two { grid-template-columns: 1fr 1fr; } }
+  label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  input, select, textarea {
+    width: 100%; font: inherit; font-size: 15px; color: var(--fg);
+    background: var(--field); border: 1px solid var(--line); border-radius: 8px;
+    padding: 10px 12px;
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent);
+  }
+  .hp { position: absolute; left: -9999px; }
+  button.submit {
+    font: inherit; font-size: 15px; font-weight: 600; color: #fff;
+    background: var(--accent); border: 0; border-radius: 8px;
+    padding: 11px 22px; cursor: pointer;
+  }
+  button.submit:hover { filter: brightness(1.08); }
+  button.submit[disabled] { opacity: 0.6; cursor: default; }
+  .formnote { color: var(--muted); font-size: 13px; margin: 14px 0 0; }
+  .formmsg { font-size: 15px; margin: 16px 0 0; font-weight: 600; }
+  .formmsg.ok { color: #2f7a43; }
+  .formmsg.err { color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .formmsg.ok { color: #5fc77f; } }
+
+  footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 14px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Diego Díaz López</h1>
+    <p class="lede">
+      <span data-l="en">Applied AI and solutions architecture. I work with Spanish enterprises on
+      getting Claude and other frontier models from a first use case into production — and on the
+      organisational redesign that decides whether it sticks. Anthropic Education Ambassador and
+      Claude Community Lead, Madrid.</span>
+      <span data-l="es">IA aplicada y arquitectura de soluciones. Trabajo con empresas españolas
+      para llevar Claude y otros modelos frontera del primer caso de uso a producción — y en el
+      rediseño organizativo que decide si la cosa se sostiene. Anthropic Education Ambassador y
+      Claude Community Lead en Madrid.</span>
+    </p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/diegodl">LinkedIn</a>
+      <a href="mailto:diegodl@gmail.com">diegodl@gmail.com</a>
+      <a href="#contact"><span data-l="en">Get in touch</span><span data-l="es">Contacto</span></a>
+      <div class="langswitch" role="group" aria-label="Language / Idioma">
+        <button type="button" data-setlang="es" aria-pressed="false">ES</button>
+        <button type="button" data-setlang="en" aria-pressed="true">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <h2><span data-l="en">Ambassador &amp; community</span><span data-l="es">Ambassador y comunidad</span></h2>
+
+  <div class="panel prose">
+    <p data-l="en">I am an <strong>Anthropic Education Ambassador</strong> and the
+    <strong>Claude Community Lead for Madrid</strong>. Both roles are volunteer: Anthropic runs the
+    programmes, and I run the local part of them — which in practice means three things.</p>
+    <p data-l="es">Soy <strong>Anthropic Education Ambassador</strong> y
+    <strong>Claude Community Lead en Madrid</strong>. Los dos roles son voluntarios: Anthropic lleva
+    los programas y yo la parte local, que en la práctica se concreta en tres cosas.</p>
+
+    <p data-l="en"><strong>Education.</strong> Helping universities, bootcamps and teachers work out
+    what changes in a curriculum when students have a capable model in front of them — assessment
+    first, because that is what breaks first.</p>
+    <p data-l="es"><strong>Educación.</strong> Ayudar a universidades, bootcamps y docentes a
+    entender qué cambia en un programa formativo cuando el alumno tiene delante un modelo capaz —
+    empezando por la evaluación, porque es lo primero que se rompe.</p>
+
+    <p data-l="en"><strong>Community.</strong> Organising Claude Community events in Madrid: meetups,
+    build days and hands-on sessions where people ship something in the room rather than watch
+    slides. Announced on LinkedIn and by Luma; if you want to be told about the next one, use the
+    form below.</p>
+    <p data-l="es"><strong>Comunidad.</strong> Organizar los eventos de Claude Community en Madrid:
+    meetups, build days y sesiones prácticas en las que se construye algo en la sala en lugar de
+    mirar diapositivas. Se anuncian por LinkedIn y Luma; si quieres que te avise del siguiente,
+    escríbeme por el formulario.</p>
+
+    <p data-l="en"><strong>Talks.</strong> Conferences, internal sessions and workshops on agents,
+    MCP and what AI adoption actually costs an organisation. The slides are below, free to reuse with
+    attribution.</p>
+    <p data-l="es"><strong>Charlas.</strong> Conferencias, sesiones internas y workshops sobre
+    agentes, MCP y lo que realmente le cuesta a una organización adoptar IA. Las diapositivas están
+    más abajo, libres de reutilizar citando la fuente.</p>
+
+    <p class="meta" style="margin:0">
+      <span data-l="en">Opinions here are mine, not Anthropic's.</span>
+      <span data-l="es">Lo que digo aquí es mío, no de Anthropic.</span>
+    </p>
+  </div>
+
+  <h2><span data-l="en">What I can help with</span><span data-l="es">En qué puedo ayudar</span></h2>
+
+  <div class="offer">
+    <div class="panel">
+      <h3><span data-l="en">Keynotes</span><span data-l="es">Keynotes</span></h3>
+      <p data-l="en">30–60 minutes for a conference, an internal all-hands or a management committee.
+      Argument-led rather than demo-led, adapted to the audience's sector.</p>
+      <p data-l="es">30–60 minutos para una conferencia, un all-hands interno o un comité de
+      dirección. Con una tesis detrás, no una demo, y adaptada al sector de quien escucha.</p>
+    </div>
+    <div class="panel">
+      <h3><span data-l="en">Hands-on workshops</span><span data-l="es">Workshops prácticos</span></h3>
+      <p data-l="en">Two to four hours, laptops open: build your first skill or agent, MCP from
+      scratch, or AI-native development with Claude Code. Everyone leaves with something that runs.</p>
+      <p data-l="es">De dos a cuatro horas, portátiles abiertos: tu primera skill o agente, MCP desde
+      cero, o desarrollo AI-native con Claude Code. Todo el mundo se va con algo que funciona.</p>
+    </div>
+    <div class="panel">
+      <h3><span data-l="en">Adoption advisory</span><span data-l="es">Asesoría de adopción</span></h3>
+      <p data-l="en">Where to start, how to pick the first use cases, what to measure, and the
+      incentives and permissions that decide whether any of it survives the pilot.</p>
+      <p data-l="es">Por dónde empezar, cómo elegir los primeros casos de uso, qué medir, y los
+      incentivos y permisos que deciden si algo de esto sobrevive al piloto.</p>
+    </div>
+    <div class="panel">
+      <h3><span data-l="en">Sessions for educators</span><span data-l="es">Sesiones para docentes</span></h3>
+      <p data-l="en">For schools, universities and training centres: assessment design, academic
+      integrity, and using Claude as a tutor rather than as an answer machine.</p>
+      <p data-l="es">Para colegios, universidades y centros de formación: diseño de la evaluación,
+      integridad académica, y usar Claude como tutor y no como máquina de respuestas.</p>
+    </div>
+  </div>
+
+  <h2><span data-l="en">Talks</span><span data-l="es">Charlas</span></h2>
+
+  <div class="talk">
+    <h3>The Reorganization Advantage</h3>
+    <p class="meta">
+      <span data-l="en">Enterprise audiences · 2026</span>
+      <span data-l="es">Público corporativo · 2026</span>
+    </p>
+    <p class="desc" data-l="en">Frontier capability now costs cents through an API, so access has
+    stopped being an advantage. What separates the companies that take off from the ones that notice
+    nothing is organisational: incentives, permission and capability — none of which can be bought
+    through an API. Built on the 1890s dynamo productivity lag and on Narayanan &amp; Kapoor's
+    argument for AI as a normal technology.</p>
+    <p class="desc" data-l="es">La capacidad frontera cuesta céntimos vía API, así que el acceso ha
+    dejado de ser una ventaja. Lo que separa a las empresas que despegan de las que no notan nada es
+    organizativo: incentivos, permiso y capacidad — y nada de eso se compra por API. Apoyada en el
+    retardo de productividad de la dinamo en 1890 y en el argumento de Narayanan y Kapoor sobre la IA
+    como tecnología normal.</p>
+    <a class="slides" href="reorganization-advantage.pdf">
+      <span data-l="en">Slides (PDF) →</span><span data-l="es">Diapositivas (PDF) →</span>
+    </a>
+    <div class="tags">
+      <span class="tag"><span data-l="en">AI adoption</span><span data-l="es">Adopción de IA</span></span>
+      <span class="tag"><span data-l="en">Organisational design</span><span data-l="es">Diseño organizativo</span></span>
+      <span class="tag"><span data-l="en">Enterprise</span><span data-l="es">Empresa</span></span>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3>Agents and MCP</h3>
+    <p class="meta">Codemotion Madrid · 2025</p>
+    <p class="desc" data-l="en">What an agent actually is, the ReAct loop, tool calling and memory,
+    and the architectures that vary by how much control you hand the model. Then the Model Context
+    Protocol itself: client–server architecture, JSON-RPC 2.0 over stdio and HTTP+SSE, the four
+    message types, connection lifecycle, OAuth, and where MCP servers get their security wrong.</p>
+    <p class="desc" data-l="es">Qué es realmente un agente, el bucle ReAct, tool calling y memoria, y
+    las arquitecturas que varían según cuánto control le cedes al modelo. Después el propio Model
+    Context Protocol: arquitectura cliente-servidor, JSON-RPC 2.0 sobre stdio y HTTP+SSE, los cuatro
+    tipos de mensaje, ciclo de vida de la conexión, OAuth, y en qué se equivocan los servidores MCP
+    cuando hablamos de seguridad.</p>
+    <a class="slides" href="agents-and-mcp-codemotion.pdf">
+      <span data-l="en">Slides (PDF) →</span><span data-l="es">Diapositivas (PDF) →</span>
+    </a>
+    <div class="tags">
+      <span class="tag">MCP</span>
+      <span class="tag"><span data-l="en">Agents</span><span data-l="es">Agentes</span></span>
+      <span class="tag">ReAct</span>
+      <span class="tag"><span data-l="en">Protocol design</span><span data-l="es">Diseño de protocolos</span></span>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3><span data-l="en">Building applications with Claude</span><span data-l="es">Construyendo aplicaciones con Claude</span></h3>
+    <p class="meta">Supabase Madrid meetup · Q4 2025</p>
+    <p class="desc" data-l="en">A live build: a working dashboard starting from a Figma design,
+    orchestrating three MCP servers along the way — Figma to pull the design, Playwright to refine
+    the result against a real browser, and Supabase as the cache behind live data.</p>
+    <p class="desc" data-l="es">Una construcción en directo: un dashboard que funciona partiendo de un
+    diseño de Figma, orquestando tres servidores MCP por el camino — Figma para traer el diseño,
+    Playwright para afinar el resultado contra un navegador real, y Supabase como caché detrás de los
+    datos en vivo.</p>
+    <a class="slides" href="building-with-claude-supabase.pdf">
+      <span data-l="en">Slides (PDF) →</span><span data-l="es">Diapositivas (PDF) →</span>
+    </a>
+    <div class="tags">
+      <span class="tag">Claude Code</span>
+      <span class="tag"><span data-l="en">MCP orchestration</span><span data-l="es">Orquestación MCP</span></span>
+      <span class="tag"><span data-l="en">Live build</span><span data-l="es">En directo</span></span>
+    </div>
+  </div>
+
+  <div class="talk">
+    <h3><span data-l="en">The Future of Software</span><span data-l="es">El futuro del software</span></h3>
+    <p class="meta">AI Network · 2025</p>
+    <p class="desc" data-l="en">Jevons' paradox applied to software: when the cost of producing code
+    collapses, demand does not fall, it moves. What that means for what a developer actually does,
+    and which control points stay human.</p>
+    <p class="desc" data-l="es">La paradoja de Jevons aplicada al software: cuando el coste de
+    producir código se desploma, la demanda no cae, se mueve. Qué implica eso para lo que hace de
+    verdad un desarrollador, y qué puntos de control siguen siendo humanos.</p>
+    <a class="slides" href="future-of-software.pdf">
+      <span data-l="en">Slides (PDF) →</span><span data-l="es">Diapositivas (PDF) →</span>
+    </a>
+    <div class="tags">
+      <span class="tag"><span data-l="en">Future of work</span><span data-l="es">Futuro del trabajo</span></span>
+      <span class="tag"><span data-l="en">Software economics</span><span data-l="es">Economía del software</span></span>
+    </div>
+  </div>
+
+  <h2><span data-l="en">Resources</span><span data-l="es">Recursos</span></h2>
+
+  <ul class="res">
+    <li>
+      <a href="https://www.anthropic.com/learn">Anthropic Academy</a>
+      <span data-l="en">Anthropic's own free courses — Claude Code, AI fluency, the API, MCP.</span>
+      <span data-l="es">Los cursos gratuitos de Anthropic — Claude Code, fluidez en IA, la API, MCP.</span>
+    </li>
+    <li>
+      <a href="https://docs.claude.com">Claude Docs</a>
+      <span data-l="en">The reference: API, prompting, agents, Claude Code. Start here.</span>
+      <span data-l="es">La referencia: API, prompting, agentes, Claude Code. Empieza aquí.</span>
+    </li>
+    <li>
+      <a href="https://claude.com/solutions/education">Claude for Education</a>
+      <span data-l="en">Learning mode, campus programmes and what institutions get.</span>
+      <span data-l="es">Modo aprendizaje, programas para campus y qué obtienen las instituciones.</span>
+    </li>
+    <li>
+      <a href="https://modelcontextprotocol.io">Model Context Protocol</a>
+      <span data-l="en">The spec and SDKs, if you want to go deeper than the talk.</span>
+      <span data-l="es">La especificación y los SDK, si quieres ir más allá de la charla.</span>
+    </li>
+    <li>
+      <a href="https://github.com/anthropics/claude-cookbooks">Claude Cookbooks</a>
+      <span data-l="en">Working notebooks: RAG, tool use, evaluation, vision.</span>
+      <span data-l="es">Notebooks que funcionan: RAG, tool use, evaluación, visión.</span>
+    </li>
+    <li>
+      <a href="https://github.com/anthropics/skills">Agent Skills</a>
+      <span data-l="en">Anthropic's public skills repo — the best way to see how one is written.</span>
+      <span data-l="es">El repositorio público de skills de Anthropic — la mejor forma de ver cómo se escribe una.</span>
+    </li>
+  </ul>
+
+  <h2 id="contact"><span data-l="en">Get in touch</span><span data-l="es">Contacto</span></h2>
+
+  <div class="panel">
+    <p class="desc">
+      <span data-l="en">Talk or workshop request, resources for a classroom, or anything else — this
+      reaches my inbox. I answer in Spanish or English.</span>
+      <span data-l="es">Una charla o workshop, recursos para el aula, o cualquier otra cosa — esto
+      llega a mi correo. Respondo en español o en inglés.</span>
+    </p>
+
+    <!-- ============================================================
+         SETUP: create a free form at https://formspree.io, then paste
+         its endpoint below in place of REPLACE_WITH_YOUR_FORMSPREE_ID.
+         Nothing secret goes here — a Formspree endpoint is public by design.
+         ============================================================ -->
+    <form id="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
+
+      <div class="row">
+        <div>
+          <label for="topic"><span data-l="en">What is this about?</span><span data-l="es">¿Sobre qué escribes?</span></label>
+          <select id="topic" name="topic" required>
+            <option id="topic-placeholder" value="" selected disabled>…</option>
+            <option data-l="en" value="Talk or workshop">Talk or workshop</option>
+            <option data-l="es" value="Charla o workshop">Charla o workshop</option>
+            <option data-l="en" value="Resources for educators">Resources for educators</option>
+            <option data-l="es" value="Recursos para docentes">Recursos para docentes</option>
+            <option data-l="en" value="Community events in Madrid">Community events in Madrid</option>
+            <option data-l="es" value="Eventos de comunidad en Madrid">Eventos de comunidad en Madrid</option>
+            <option data-l="en" value="Something else">Something else</option>
+            <option data-l="es" value="Otra cosa">Otra cosa</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row two">
+        <div>
+          <label for="name"><span data-l="en">Name</span><span data-l="es">Nombre</span></label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="email"><span data-l="en">Email</span><span data-l="es">Email</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="row two">
+        <div>
+          <label for="org">
+            <span data-l="en">Organisation <em>(optional)</em></span>
+            <span data-l="es">Organización <em>(opcional)</em></span>
+          </label>
+          <input id="org" name="organisation" type="text" autocomplete="organization">
+        </div>
+        <div>
+          <label for="when">
+            <span data-l="en">Date or timeframe <em>(optional)</em></span>
+            <span data-l="es">Fecha o plazo <em>(opcional)</em></span>
+          </label>
+          <input id="when" name="timeframe" type="text" placeholder="Q1 2027, 14/03, …">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="message"><span data-l="en">Message</span><span data-l="es">Mensaje</span></label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+      </div>
+
+      <!-- Honeypot: bots fill it, humans never see it -->
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <button class="submit" type="submit">
+        <span data-l="en">Send</span><span data-l="es">Enviar</span>
+      </button>
+
+      <p class="formnote">
+        <span data-l="en">Your details are used only to reply to you. Nothing is stored on this site
+        and nothing is shared.</span>
+        <span data-l="es">Uso tus datos solo para responderte. Esta página no guarda nada ni lo
+        comparte con nadie.</span>
+      </p>
+      <p class="formmsg" id="form-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <footer>
+    <span data-l="en">Talks delivered in Spanish; slides as presented. Slides are free to reuse with
+    attribution. Get in touch at <a href="mailto:diegodl@gmail.com">diegodl@gmail.com</a>.</span>
+    <span data-l="es">Las charlas se dan en español; las diapositivas, tal como se presentaron.
+    Libres de reutilizar citando la fuente. Escríbeme a
+    <a href="mailto:diegodl@gmail.com">diegodl@gmail.com</a>.</span>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Language ----------
+  (function () {
+    var STORE = 'ddl-lang';
+    var buttons = document.querySelectorAll('[data-setlang]');
+
+    function apply(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      buttons.forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.setlang === lang));
+      });
+      // <option> cannot be hidden reliably with CSS in every browser: drop the
+      // other language's options from the select instead.
+      document.querySelectorAll('select option[data-l]').forEach(function (o) {
+        o.hidden = o.dataset.l !== lang;
+        o.disabled = o.dataset.l !== lang;
+      });
+      var ph = document.getElementById('topic-placeholder');
+      if (ph) ph.textContent = lang === 'es' ? 'Elige una opción…' : 'Choose one…';
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem(STORE); } catch (e) {}
+    var initial = saved || ((navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en');
+    apply(initial);
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        apply(b.dataset.setlang);
+        try { localStorage.setItem(STORE, b.dataset.setlang); } catch (e) {}
+      });
+    });
+  })();
+
+  // ---------- Form: submit without leaving the page ----------
+  (function () {
+    var form = document.getElementById('contact-form');
+    var msg = document.getElementById('form-msg');
+    if (!form) return;
+
+    var T = {
+      sending: { en: 'Sending…', es: 'Enviando…' },
+      ok: { en: 'Thanks — got it. I will reply to you shortly.', es: 'Gracias, recibido. Te respondo en breve.' },
+      err: {
+        en: 'Something went wrong. Please email diegodl@gmail.com instead.',
+        es: 'Algo ha fallado. Escríbeme a diegodl@gmail.com.'
+      },
+      setup: {
+        en: 'The form is not connected yet — email diegodl@gmail.com.',
+        es: 'El formulario aún no está conectado — escríbeme a diegodl@gmail.com.'
+      }
+    };
+    function t(key) {
+      return T[key][document.documentElement.getAttribute('data-lang') === 'es' ? 'es' : 'en'];
+    }
+    function say(text, cls) {
+      msg.textContent = text;
+      msg.className = 'formmsg ' + (cls || '');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (form.action.indexOf('REPLACE_WITH_YOUR_FORMSPREE_ID') !== -1) {
+        say(t('setup'), 'err');
+        return;
+      }
+
+      var button = form.querySelector('button.submit');
+      button.disabled = true;
+      say(t('sending'));
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('bad status');
+          form.reset();
+          say(t('ok'), 'ok');
+        })
+        .catch(function () {
+          say(t('err'), 'err');
+        })
+        .finally(function () {
+          button.disabled = false;
+        });
+    });
+  })();
+</script>
+</body>
+</html>
